@@ -6,14 +6,20 @@ import Home from './screen/Home';
 import Details from './screen/Details';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Profile from './screen/Profile';
-import Icon from 'react-native-vector-icons/Entypo';
-
+import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer'
+import DrawerContent from './screen/DrawerContent';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import SplashScreen from 'react-native-splash-screen'
 
 // Function to create Stack Navigator
 function CreateStackNavigation() {
   const Stack = createNativeStackNavigator();
   const navigation = useNavigation();
-
+  const handlePress = () => {
+    navigation.dispatch(DrawerActions.openDrawer());
+  };
   return (
     <Stack.Navigator screenOptions={{
       statusBarColor:'#0163d2',
@@ -24,17 +30,13 @@ function CreateStackNavigation() {
       headerTintColor:'white',
   
     }}>
-      <Stack.Screen name="Home" component={Home} options={{
+      <Stack.Screen name="Home Screen" component={Home} options={{
             headerLeft: () =>{
               return(
-                <Icon
-                name="menu"
-                onPress ={() =>
-                navigation.dispatch(DrawerActions.openDrawer())
-                }
-                color='white'
-                size={30}
-              />
+                <TouchableOpacity onPress={handlePress}>
+                  <FontAwesomeIcon icon={faBars} size={25} style={{color:'white'}} />
+              
+              </TouchableOpacity>           
               );
             }
       }} />
@@ -48,17 +50,23 @@ function CreatedrawerNavigation() {
 
 
   return (
-    <Drawer.Navigator screenOptions={{
+    <Drawer.Navigator 
+    drawerContent={props => <DrawerContent {...props}/>}
+    screenOptions={{
       headerShown:false
     }}>
-      <Drawer.Screen name="Home" component={CreateStackNavigation}  />
-      
+      <Drawer.Screen name="Home" component={CreateStackNavigation}/>     
     </Drawer.Navigator>
   );
 }
 
 
 function App() {
+  React.useEffect(() =>{
+    setTimeout(() =>{
+      SplashScreen.hide()
+    },200)
+  })
   return (
     <NavigationContainer>
   <CreatedrawerNavigation/>

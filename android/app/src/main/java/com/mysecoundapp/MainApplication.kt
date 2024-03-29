@@ -1,4 +1,5 @@
 package com.mysecoundapp
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -11,6 +12,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
+import com.horcrux.svg.SvgPackage;
 
 class MainApplication : Application(), ReactApplication {
 
@@ -18,8 +20,11 @@ class MainApplication : Application(), ReactApplication {
       object : DefaultReactNativeHost(this) {
         override fun getPackages(): List<ReactPackage> =
             PackageList(this).packages.apply {
+              // new SvgPackage()
+              // new SplashScreenReactPackage()
               // Packages that cannot be autolinked yet can be added manually here, for example:
-              // add(MyReactNativePackage())
+            //add(SvgPackage())
+
             }
 
         override fun getJSMainModuleName(): String = "index"
