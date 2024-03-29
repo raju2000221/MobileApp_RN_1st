@@ -9,7 +9,6 @@ const Home = (props) => {
       <Button
       title='Details'
       onPress={()=> props.navigation.navigate("Details",{
-        name:"raju"
       })}
       />
     </View>

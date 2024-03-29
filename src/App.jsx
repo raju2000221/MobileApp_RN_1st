@@ -1,32 +1,67 @@
-// In App.js in a new project
-
+import 'react-native-gesture-handler';
 import * as React from 'react';
-import { View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation,DrawerActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screen/Home';
 import Details from './screen/Details';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Profile from './screen/Profile';
+import Icon from 'react-native-vector-icons/Entypo';
 
-function HomeScreen() {
+
+// Function to create Stack Navigator
+function CreateStackNavigation() {
+  const Stack = createNativeStackNavigator();
+  const navigation = useNavigation();
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screenn</Text>
-    </View>
+    <Stack.Navigator screenOptions={{
+      statusBarColor:'#0163d2',
+      headerStyle:{
+        backgroundColor:'#0163d2',
+      },
+      headerTitleAlign:'center',
+      headerTintColor:'white',
+  
+    }}>
+      <Stack.Screen name="Home" component={Home} options={{
+            headerLeft: () =>{
+              return(
+                <Icon
+                name="menu"
+                onPress ={() =>
+                navigation.dispatch(DrawerActions.openDrawer())
+                }
+                color='white'
+                size={30}
+              />
+              );
+            }
+      }} />
+      <Stack.Screen name="Details" component={Details} />
+      <Stack.Screen name="Profile" component={Profile} />
+    </Stack.Navigator>
+  );
+}
+function CreatedrawerNavigation() {
+  const Drawer = createDrawerNavigator();
+
+
+  return (
+    <Drawer.Navigator screenOptions={{
+      headerShown:false
+    }}>
+      <Drawer.Screen name="Home" component={CreateStackNavigation}  />
+      
+    </Drawer.Navigator>
   );
 }
 
-const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-      initialRouteName='Home'
-      
-      >
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Details" component={Details} />
-      </Stack.Navigator>
+  <CreatedrawerNavigation/>
     </NavigationContainer>
   );
 }

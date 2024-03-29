@@ -1,20 +1,16 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Details = (props) => {
+const Profile = (props) => {
   return (
     <View>
-      <Text>Details</Text>
-      <Button
-      title='Profile'
-      onPress={()=> props.navigation.navigate("Profile",{
-      })}
-      />
+      <Text>Profile</Text>
+      
     </View>
   )
 }
 
-export default Details
+export default Profile
 
 const styles = StyleSheet.create({
 
