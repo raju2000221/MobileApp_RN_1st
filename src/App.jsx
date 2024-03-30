@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import SplashScreen from 'react-native-splash-screen'
+import Login from './Login_Signin/Login';
+import Register from './Login_Signin/Register';
 
 // Function to create Stack Navigator
 function CreateStackNavigation() {
@@ -66,11 +68,20 @@ function App() {
     setTimeout(() =>{
       SplashScreen.hide()
     },200)
-  })
+  },[])
+const Stack = createNativeStackNavigator()
   return (
     <NavigationContainer>
-  <CreatedrawerNavigation/>
+<Stack.Navigator screenOptions={
+  {
+    headerShown:false
+  }
+}>
+  <Stack.Screen name='Login' component={Login}/>
+  <Stack.Screen name='Register' component={Register}/>
+</Stack.Navigator>
     </NavigationContainer>
+  // <Login/>
   );
 }
 
