@@ -2,7 +2,7 @@ import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View 
 import React, { useState } from 'react'
 import styles from '../../src/Style/style'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCheckCircle, faCircleXmark, faKey, faLock, faMailBulk, faMobile, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faCircleCheck, faCircleXmark, faKey, faLock, faMailBulk, faMobile, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 
@@ -20,9 +20,8 @@ const Register = () => {
             email: email,
             name: name,
             password: password,
-            confirmPassword: confirmPassword
+            
         };
-
         axios.post('http://192.168.0.112:5000/register', formData)
             .then(response => {
                 console.log('Registration successful:', response.data);
@@ -42,11 +41,14 @@ const Register = () => {
                     <Text style={{ textAlign: 'center', fontSize: 25 }}>--- Register ---</Text>
                     <View style={styles.action}>
                         <FontAwesomeIcon icon={faMobile} size={20} />
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <TextInput
                             style={{ paddingHorizontal: 20 }}
                             onChangeText={setMobile}
                             placeholder='Mobile'
                         />
+                        <FontAwesomeIcon icon={faCircleCheck} size={18} style={{ justifyContent:'flex-end', color:'green'}}/>
+                        </View>                   
                     </View>
                     <View style={styles.action}>
                         <FontAwesomeIcon icon={faMailBulk} size={20} />
@@ -70,6 +72,7 @@ const Register = () => {
                         <TextInput
                             style={{ paddingHorizontal: 20 }}
                             placeholder='Password'
+                            secureTextEntry
                             onChangeText={setPassword}
                         />
                     </View>
@@ -79,6 +82,7 @@ const Register = () => {
                             style={{ paddingHorizontal: 20 }}
                             placeholder='Confirm Password'
                             onChangeText={setConfirmPassword}
+                            secureTextEntry
                         />
                     </View>
 

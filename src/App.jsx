@@ -57,7 +57,7 @@ function CreatedrawerNavigation() {
     screenOptions={{
       headerShown:false
     }}>
-      <Drawer.Screen name="Home" component={CreateStackNavigation}/>     
+      <Drawer.Screen name='Stack' component={CreateStackNavigation}/>     
     </Drawer.Navigator>
   );
 }
@@ -79,6 +79,7 @@ const Stack = createNativeStackNavigator()
 }>
   <Stack.Screen name='Login' component={Login}/>
   <Stack.Screen name='Register' component={Register}/>
+  <Stack.Screen name='Home' component={CreatedrawerNavigation}/>
 </Stack.Navigator>
     </NavigationContainer>
   // <Login/>

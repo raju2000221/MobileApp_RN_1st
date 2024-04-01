@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     action: {
         flexDirection: 'row',
         alignItems:"center",
+        // justifyContent:'flex-end',
         padding: 8,
         marginTop: 15,
         paddingHorizontal: 15,

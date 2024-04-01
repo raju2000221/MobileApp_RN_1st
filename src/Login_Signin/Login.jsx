@@ -1,13 +1,35 @@
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import styles from '../../src/Style/style'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigation } from '@react-navigation/native'
+import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const Login = () => {
     const navigation = useNavigation();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    handleLogin = () =>{
+        const formData = {
+            email: email,
+            password: password,       
+        };
+        axios.post('http://192.168.0.112:5000/login',formData)
+        .then(response => {
+            if(response.status === 200){
+                AsyncStorage.setItem("loginToken", response.data)
+                Alert.alert("Login Successfully")
+                navigation.navigate('Home')
+            }
+            
+        })
+        .catch(error => {
+            console.error('Registration failed:', error);
+        });
+    }
     return (
         <View>
             <View style={styles.logoContainer}>
@@ -19,7 +41,8 @@ const Login = () => {
                     <FontAwesomeIcon icon={faUser} size={20} />
                     <TextInput
                         style={{ paddingHorizontal: 20 }}
-                        placeholder='Mobile or Email'
+                        placeholder='Email'
+                        onChangeText={setEmail}
                     />
                 </View>
                 <View style={styles.action}>
@@ -27,6 +50,7 @@ const Login = () => {
                     <TextInput
                         style={{ paddingHorizontal: 20 }}
                         placeholder='Password'
+                        onChangeText={setPassword}
                     />
                 </View>
                 <View style={
@@ -40,8 +64,9 @@ const Login = () => {
 
             </View>
             <View style={styles.button}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleLogin}>
                     <View style={{
+
                         backgroundColor: '#043265',
                         paddingHorizontal: 150,
                         padding: 15,
